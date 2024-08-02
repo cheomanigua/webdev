@@ -26,7 +26,7 @@ You can also choose to generate a passphrase for the private key, which you will
 
 `$ ssh-add ~/.ssh/id_rsa`
 
-The files `id_rsa` and `id_rsa.pub` have been created in the `.ssh directory`. Copy the content of `id_rsa.pub` to the clipboard for the next step.
+The files `id_rsa` and `id_rsa.pub` have been created in the `.ssh` directory. Copy the content of `id_rsa.pub` to the clipboard for the next step.
 
 ## 2. Add your public ssh key to GitHub
 ***Skip this step if you already added your public SSH key to GitHub***
