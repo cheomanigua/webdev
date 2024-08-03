@@ -4,7 +4,7 @@ date: 2019-02-11T19:27:37+10:00
 
 ---
 
-In this tutorial you'll learn how to create and maintain a version control system for your project, as if you just installed the operating system.
+In this tutorial you'll learn how to create and maintain a version control system for your project, as if you just installed the operating system. This tutorial assumes that you already have a project in your local machine.
 
 ## Overview
 
@@ -54,7 +54,7 @@ git add .
 git commit -m 'first commit'
 git branch -M main
 git remote add origin [repository URL] 
-git push -u origin master
+git push -u origin main
 ```
 
 ## 5. Update your repository when code changes in local project 
