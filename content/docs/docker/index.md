@@ -121,6 +121,36 @@ And now we issue the build command:
 
 `docker image build -t nginx-mywebsite .` 
 
+### Multi-stage builds
+
+Normal builds generate very big image sizes. To reduce the image size to a minimun, Multi-stage builds come to the rescue.
+
+The example below shows how to create a Dockerfile to build a Golang app in a Multi-stage fashion:
+
+```dockerfile 
+FROM golang:1.22.5 AS build-stage
+
+WORKDIR /go/src/app
+COPY go.* ./
+RUN go mod download
+
+COPY . ./
+
+RUN GO111MODULE=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -mod=readonly -v -o /go/bin/app
+
+# Now copy it into our base image.
+FROM gcr.io/distroless/static
+COPY --from=build-stage /go/bin/app /
+
+EXPOSE 8080
+USER nonroot:nonroot
+
+CMD ["/app"]
+```
+
+To build the image, issue: `docker image build -t my-golang-app .` 
+
+
 ### Pushing our new created image to Docker Hub
 
 ``` 
