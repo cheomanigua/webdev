@@ -137,11 +137,13 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 
-COPY *.go ./
+COPY . ./
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o /docker-golang-app
+RUN CGO_ENABLED=0 GOOS=linux go build -o main .
 
-CMD ["/docker-golang-app"]
+COPY /static ./static/
+
+CMD ["/main"]
 ```
 
 *Multi-stage build*
@@ -154,18 +156,17 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 
-COPY *.go ./
+COPY . ./
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o /docker-golang-app
+RUN CGO_ENABLED=0 GOOS=linux go build -o main .
 
 # Deploy the application binary into a lean image
 FROM gcr.io/distroless/static
+COPY --from=build-stage /app /
 
-WORKDIR /
+COPY /static ./static/
 
-COPY --from=build-stage /docker-golang-app /
-
-CMD ["/docker-golang-app"]
+CMD ["/main"]
 ```
 
 To build the image, issue: `docker image build -t golang-image .` 
