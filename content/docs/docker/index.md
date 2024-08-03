@@ -63,8 +63,7 @@ To access the container's shell, issue:
 Pages are served from `/usr/share/nginx/html` 
 
 ### Finding the IP of a container
-`docker inspect \
-  -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' container_name_or_id`
+`docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' container_name_or_id`
 
 ## Volumes
 
