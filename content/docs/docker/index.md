@@ -127,6 +127,8 @@ Normal builds generate very big image sizes. To reduce the image size to a minim
 
 The examples below shows how to create a Dockerfile to build a Golang app in a Multi-stage fashion. The first Dockerfile is a normal build and the second Dockerfile is a Multi-stage build.
 
+*Normal build*
+
 ```dockerfile
 FROM golang:1.22.5
 
@@ -142,6 +144,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /docker-golang-app
 CMD ["/docker-golang-app"]
 ```
 
+*Multi-stage build*
 
 ```dockerfile
 FROM golang:1.22.5 AS build-stage
