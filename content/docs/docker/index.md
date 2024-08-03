@@ -125,30 +125,47 @@ And now we issue the build command:
 
 Normal builds generate very big image sizes. To reduce the image size to a minimun, Multi-stage builds come to the rescue.
 
-The example below shows how to create a Dockerfile to build a Golang app in a Multi-stage fashion:
+The examples below shows how to create a Dockerfile to build a Golang app in a Multi-stage fashion. The first Dockerfile is a normal build and the second Dockerfile is a Multi-stage build.
 
-```dockerfile 
-FROM golang:1.22.5 AS build-stage
+```dockerfile
+FROM golang:1.22.5
 
-WORKDIR /go/src/app
-COPY go.* ./
+WORKDIR /app
+
+COPY go.mod go.sum ./
 RUN go mod download
 
-COPY . ./
+COPY *.go ./
 
-RUN GO111MODULE=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -mod=readonly -v -o /go/bin/app
+RUN CGO_ENABLED=0 GOOS=linux go build -o /docker-golang-app
 
-# Now copy it into our base image.
-FROM gcr.io/distroless/static
-COPY --from=build-stage /go/bin/app /
-
-EXPOSE 8080
-USER nonroot:nonroot
-
-CMD ["/app"]
+CMD ["/docker-golang-app"]
 ```
 
-To build the image, issue: `docker image build -t my-golang-app .` 
+
+```dockerfile
+FROM golang:1.22.5 AS build-stage
+
+WORKDIR /app
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY *.go ./
+
+RUN CGO_ENABLED=0 GOOS=linux go build -o /docker-golang-app
+
+# Deploy the application binary into a lean image
+FROM gcr.io/distroless/static
+
+WORKDIR /
+
+COPY --from=build-stage /docker-golang-app /
+
+CMD ["/docker-golang-app"]
+```
+
+To build the image, issue: `docker image build -t golang-image .` 
 
 
 ### Pushing our new created image to Docker Hub
