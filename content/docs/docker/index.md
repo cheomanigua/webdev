@@ -25,30 +25,45 @@ sudo usermod -aG docker $USER
 
 #### General
 
-* **docker version**: Checks docker version installed
+* **docker version**: Check docker version installed
 * **docker info**: Info about the docker environment
 * **docker login -u "username"**: Access your Docker Hub repository
 
 #### Images
 
 * **docker images**: List all available images in our host
-* **docker pull nginx**: Pull the nginx image from docker hub to our host
-* **docker run -d nginx**: Pull and start a new container based on nginx image (Pull only if image not present in local)
-* **docker rmi nginx**: Removes nginx image from our host
+* **docker pull [image]**: Pull the image from docker hub to our host
+* **docker run -d [image]**: Pull and start a new container based on the image (Pull only if image not present in local)
+* **docker rmi [image]**: Remove the image from our host
+* **docker rmi -f $(docker images -a -q)**: Remove all images
 
 #### Containers
 
 * **docker ps**: List all running containers
 * **docker ps -a**: List all containers, running or not
-* **docker stop 'container_name'**: Stops a running container
-* **docker start 'container_name'**: Start a stopped container
-* **docker rm 'container_name'**: Remove a non running container 
-* **docker rm 'container_name' -f**: Remove a container, running or not 
+* **docker stop [container]**: Stop a running container
+* **docker start [container]**: Start a stopped container
+* **docker rm [container]**: Remove a non running container 
+* **docker rm [container] -f**: Remove a container, running or not 
+* **docker kill $(docker ps -q)** Stop all running containers
 * **docker rm $(docker ps -aq)**: Remove all non running containers
 * **docker rm $(docker ps -aq) -f**: Remove all containers, running or not
-* **docker exec -it 'container name' [BASH]**: Access container file system command prompt. [BASH] can be `/bin/bash` or `/bin/sh`
+* **docker exec -it [container] [BASH]**: Access container file system command prompt. [BASH] can be `/bin/bash` or `/bin/sh`
 * **docker create nginx top**: Create a writeable container layer over the specified image and prepares it for running the specified command.
-* **docker logs 'container_name'**: Fetch the logs of the container.
+* **docker logs [container]**: Fetch the logs of the container.
+
+#### Volumes
+* ** docker volume ls**: List all volumes
+* ** docker volume rm [volume]**: Remove volume [volume]
+* ** docker volume prune**: Remove all volumes
+
+
+#### Cleaning the system
+
+**docker system df**: Show information on images, containers, volumes and build cache size
+**docker buildx prune -f**: Remove all cache
+**docker builder prune**: Remove all dangling build cache
+**docker system prune -a**: Delete all images, containers and cache
 
 ### Creating a nginx container
 
@@ -139,7 +154,7 @@ RUN go mod download
 
 COPY . ./
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o main .
+RUN GO111MODULE=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -mod=readonly -v -o main . 
 
 COPY /static ./static/
 
@@ -158,7 +173,7 @@ RUN go mod download
 
 COPY . ./
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o main .
+RUN GO111MODULE=on CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -mod=readonly -v -o main . 
 
 # Deploy the application binary into a lean image
 FROM gcr.io/distroless/static
