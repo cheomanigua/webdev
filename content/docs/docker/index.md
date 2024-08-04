@@ -53,17 +53,17 @@ sudo usermod -aG docker $USER
 * **docker logs [container]**: Fetch the logs of the container.
 
 #### Volumes
-* ** docker volume ls**: List all volumes
-* ** docker volume rm [volume]**: Remove volume [volume]
-* ** docker volume prune**: Remove all volumes
+- **docker volume ls**: List all volumes
+- **docker volume rm [volume]**: Remove volume [volume]
+- **docker volume prune**: Remove all volumes
 
 
 #### Cleaning the system
 
-**docker system df**: Show information on images, containers, volumes and build cache size
-**docker buildx prune -f**: Remove all cache
-**docker builder prune**: Remove all dangling build cache
-**docker system prune -a**: Delete all images, containers and cache
+- **docker system df**: Show information on images, containers, volumes and build cache size
+- **docker buildx prune -f**: Remove all cache
+- **docker builder prune**: Remove all dangling build cache
+- **docker system prune -a**: Delete all images, containers and cache
 
 ### Creating a nginx container
 
