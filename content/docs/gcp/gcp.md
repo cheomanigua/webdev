@@ -48,6 +48,25 @@ gcloud config set project [PROJECT_ID] // switch to specified project
 gcloud config set compute/zone [ZONE] // set default zone for gcloud
 ```
 
+## How to use multiple accounts efficiently
+
+### Create a configuration
+
+```bash
+gcloud config configurations create [config-name]
+gcloud config set project [project-id]
+gcloud config set account [account]
+```
+### See configurations
+```bash
+gcloud config configurations list
+```
+
+### Switch to a different configuration
+```bash
+gcloud config configurations activate default
+```
+
 
 ## Compute Engine VM instance
 
