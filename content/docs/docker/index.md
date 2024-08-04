@@ -269,6 +269,30 @@ rm -rf /var/lib/docker/swarm
 systemctl restart docker
 ```
 
+# Push local images to Google Artifact Registry
+
+```bash
+SET DEFAULTS
+
+gcloud config set project beach-walks-azure
+
+
+PUSH LOCAL DOCKER IMAGE TO ARTIFACT REGISTRY
+gcloud services enable artifactregistry.googleapis.com
+gcloud artifacts repositories create test --repository-format=docker
+gcloud iam service-accounts create dockerpusher --description="In charge of pushing docker images to Artifact Registry" --display-name="Docker Pusher"
+gcloud projects add-iam-policy-binding beach-walks-azure --member="serviceAccount:dockerpusher@beach-walks-azure.iam.gserviceaccount.com" --role="roles/artifactregistry.writer"
+gcloud iam service-accounts keys create ~/dockerpusher-private-key.json --iam-account=dockerpusher@beach-walks-azure.iam.gserviceaccount.com
+gcloud auth activate-service-account dockerpusher@beach-walks-azure.iam.gserviceaccount.com --key-file=~/dockerpusher-private-key.json
+gcloud auth configure-docker us-central1    or     gcloud config set artifacts/location us-central1
+echo "{}" >  $HOME/.docker/config.json
+gcloud auth configure-docker us-central1-docker.pkg.dev
+docker tag go-app us-central1-docker.pkg.dev/beach-walks-azure/test/
+docker push us-central1-docker.pkg.dev/beach-walks-azure/test/go-app:v1
+
+gcloud artifacts repositories describe test
+gcloud artifacts docker images list us-central1-docker.pkg.dev/beach-walks-azure/test/go-app --include-tags
+```
 # Tips and Hints
 
 * If there's a need to run Docker containers in production without Kubernetes, use the `--init` flag upon `docker run` . This injects a `PID 1` process, which handles its terminated children correctly, into the container to run.
