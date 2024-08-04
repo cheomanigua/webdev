@@ -269,13 +269,15 @@ rm -rf /var/lib/docker/swarm
 systemctl restart docker
 ```
 
-# Push local images to Google Artifact Registry
+# Deploy docker image to Google Cloud Run
 
-## Set defaults
+## Push local image to Google Artifact Registry
+
+### Set defaults
 
 `gcloud config set project beach-walks-azure`
 
-## Push local docker image to Google Cloud Artifact Registry
+### Push local docker image to Google Cloud Artifact Registry
 
 ```bash
 gcloud services enable artifactregistry.googleapis.com
@@ -298,6 +300,10 @@ References:
 [Create and delete service account keys](https://cloud.google.com/iam/docs/keys-create-delete#creating)
 [Configure authentication to Artifact Registry for Docker](https://cloud.google.com/artifact-registry/docs/docker/authentication#standalone-helper)
 [Push and pull images](https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling)
+
+## Deploy image to Cloud Run
+
+[https://cloud.google.com/run/docs/quickstarts/deploy-container](https://cloud.google.com/run/docs/quickstarts/deploy-container)
 
 # Tips and Hints
 
