@@ -297,9 +297,9 @@ gcloud artifacts docker images list us-central1-docker.pkg.dev/beach-walks-azure
 ```
 
 References:
-[Create and delete service account keys](https://cloud.google.com/iam/docs/keys-create-delete#creating)
-[Configure authentication to Artifact Registry for Docker](https://cloud.google.com/artifact-registry/docs/docker/authentication#standalone-helper)
-[Push and pull images](https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling)
+- [Create and delete service account keys](https://cloud.google.com/iam/docs/keys-create-delete#creating)
+- [Configure authentication to Artifact Registry for Docker](https://cloud.google.com/artifact-registry/docs/docker/authentication#standalone-helper)
+- [Push and pull images](https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling)
 
 ## Deploy image to Cloud Run
 
