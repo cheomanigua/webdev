@@ -271,13 +271,13 @@ systemctl restart docker
 
 # Push local images to Google Artifact Registry
 
+## Set defaults
+
+`gcloud config set project beach-walks-azure`
+
+## Push local docker image to Google Cloud Artifact Registry
+
 ```bash
-SET DEFAULTS
-
-gcloud config set project beach-walks-azure
-
-
-PUSH LOCAL DOCKER IMAGE TO ARTIFACT REGISTRY
 gcloud services enable artifactregistry.googleapis.com
 gcloud artifacts repositories create test --repository-format=docker
 gcloud iam service-accounts create dockerpusher --description="In charge of pushing docker images to Artifact Registry" --display-name="Docker Pusher"
@@ -293,6 +293,12 @@ docker push us-central1-docker.pkg.dev/beach-walks-azure/test/go-app:v1
 gcloud artifacts repositories describe test
 gcloud artifacts docker images list us-central1-docker.pkg.dev/beach-walks-azure/test/go-app --include-tags
 ```
+
+References:
+[Create and delete service account keys](https://cloud.google.com/iam/docs/keys-create-delete#creating)
+[Configure authentication to Artifact Registry for Docker](https://cloud.google.com/artifact-registry/docs/docker/authentication#standalone-helper)
+[Push and pull images](https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling)
+
 # Tips and Hints
 
 * If there's a need to run Docker containers in production without Kubernetes, use the `--init` flag upon `docker run` . This injects a `PID 1` process, which handles its terminated children correctly, into the container to run.
