@@ -348,6 +348,8 @@ $ gcloud artifacts docker images list us-central1-docker.pkg.dev/beach-walks-azu
 
 [https://cloud.google.com/run/docs/quickstarts/deploy-container](https://cloud.google.com/run/docs/quickstarts/deploy-container)
 
+**gcloud run services list**: List all Cloud Run services deployed
+
 # Tips and Hints
 
 * If there's a need to run Docker containers in production without Kubernetes, use the `--init` flag upon `docker run` . This injects a `PID 1` process, which handles its terminated children correctly, into the container to run.

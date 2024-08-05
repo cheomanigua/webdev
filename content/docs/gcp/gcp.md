@@ -53,23 +53,32 @@ gcloud config set compute/zone [ZONE] // set default zone for gcloud
 
 ### Create a configuration
 
-```bash
+```
 gcloud config configurations create [config-name]
 gcloud config set project [project-id]
 gcloud config set account [account]
 gcloud config set compute/region [region]
 gcloud config set compute/zone [zone]
 ```
-**Note**: It is not necessary to set all fields.
+**Note**: You can set less or more fields as you need
 
-### See configurations
-```bash
-gcloud config configurations list
+### Edit configuration
+```
+gcloud config configurations list  // list all configurations
+gcloud config configurations activate [config-name]  // Switch to the configuration you want to edit
+gcloud config set artifact/location [region]  // Edit the active configuration artifact region location
+```
+
+**Note**: You can set less or more fields as you need
+
+### See configuration details
+```
+gcloud config configurations describe [config-name]
 ```
 
 ### Switch to a different configuration
-```bash
-gcloud config configurations activate default
+```
+gcloud config configurations activate [config-name]
 ```
 
 
