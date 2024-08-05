@@ -307,10 +307,13 @@ endfunction
 </Message>
 
 ## Macros
-```bash
+```
+[move the cursor where you want to start to record the macro]
 $ qq
 [do all the staff]
 $ ESC
+$ q
+[move the cursor where you want to apply the macro]
 $ @q
 ```
 

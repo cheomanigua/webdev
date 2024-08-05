@@ -25,6 +25,7 @@ gcloud config list // check active account, default project (could be from a dif
 gcloud config set account john@doe.com // switch to specified account
 gcloud config set project [PROJECT_ID] // switch to specified project
 gcloud config set compute/zone [ZONE] // set default zone for gcloud
+gcloud config set artifacts/location us-central1
 
 gcloud projects list
 gcloud projects describe [PROJECT_ID]
@@ -56,7 +57,11 @@ gcloud config set compute/zone [ZONE] // set default zone for gcloud
 gcloud config configurations create [config-name]
 gcloud config set project [project-id]
 gcloud config set account [account]
+gcloud config set compute/region [region]
+gcloud config set compute/zone [zone]
 ```
+**Note**: It is not necessary to set all fields.
+
 ### See configurations
 ```bash
 gcloud config configurations list
