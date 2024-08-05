@@ -291,7 +291,7 @@ $ gcloud config set project [project-name]
 $ gcloud services enable artifactregistry.googleapis.com
 ```
 
-2. Create an Docker repository named **test** [[docs](https://cloud.google.com/sdk/gcloud/reference/artifacts/repositories/create)]
+2. Create a Docker repository named **test** [[docs](https://cloud.google.com/sdk/gcloud/reference/artifacts/repositories/create)]
 ```
 $ gcloud artifacts repositories create test --repository-format=docker
 ```
@@ -330,6 +330,7 @@ gcloud auth configure-docker us-central1-docker.pkg.dev
 ```
 $ docker tag go-app us-central1-docker.pkg.dev/beach-walks-azure/test/myimage
 ```
+If you don't tag the image like the above command, `docker push` will try to push the image to **Docker Hub** instead of **Artifact Registry** in the step below 
 
 9. Push the tagged image to Artifact Registry [[docs](https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling#push-tagged)]
 ```
