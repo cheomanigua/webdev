@@ -284,14 +284,14 @@ systemctl restart docker
 $ gcloud config set project [project-name]
 ```
 
-### Push local docker image to Google Cloud Artifact Registry
+### Push local docker image to a Docker repository at Google Cloud Artifact Registry
 
 1. Enable Artifact Registry API [[docs](https://cloud.google.com/sdk/gcloud/reference/services/enable)]
 ```
 $ gcloud services enable artifactregistry.googleapis.com
 ```
 
-2. Create an artifacts repository named **test** to store docker images [[docs](https://cloud.google.com/sdk/gcloud/reference/artifacts/repositories/create)]
+2. Create an Docker repository named **test** [[docs](https://cloud.google.com/sdk/gcloud/reference/artifacts/repositories/create)]
 ```
 $ gcloud artifacts repositories create test --repository-format=docker
 ```
@@ -326,18 +326,22 @@ $ echo "{}" >  $HOME/.docker/config.json
 gcloud auth configure-docker us-central1-docker.pkg.dev
 ```
 
-8. Tag and push image
+8. Tag a local image called **go-app** [[docs](https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling#tag)]
 ```
-$ docker tag go-app us-central1-docker.pkg.dev/beach-walks-azure/test/
-$ docker push us-central1-docker.pkg.dev/beach-walks-azure/test/go-app:v1
-$ gcloud artifacts repositories describe test
-$ gcloud artifacts docker images list us-central1-docker.pkg.dev/beach-walks-azure/test/go-app --include-tags
+$ docker tag go-app us-central1-docker.pkg.dev/beach-walks-azure/test/myimage
 ```
 
-References:
-- [Create and delete service account keys](https://cloud.google.com/iam/docs/keys-create-delete#creating)
-- [Configure authentication to Artifact Registry for Docker](https://cloud.google.com/artifact-registry/docs/docker/authentication#standalone-helper)
-- [Push and pull images](https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling)
+9. Push the tagged image to Artifact Registry [[docs](https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling#push-tagged)]
+```
+$ docker push us-central1-docker.pkg.dev/beach-walks-azure/test/myimage
+```
+
+10. Show information of **test** repository
+```
+$ gcloud artifacts repositories describe test
+$ gcloud artifacts docker images list us-central1-docker.pkg.dev/beach-walks-azure/test --include-tags
+```
+
 
 ## Deploy image to Cloud Run
 
