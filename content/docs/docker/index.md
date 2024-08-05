@@ -346,9 +346,10 @@ $ gcloud artifacts docker images list us-central1-docker.pkg.dev/beach-walks-azu
 
 ## Deploy image to Cloud Run
 
-[https://cloud.google.com/run/docs/quickstarts/deploy-container](https://cloud.google.com/run/docs/quickstarts/deploy-container)
+[Quickstart: Deploy to Cloud Run](https://cloud.google.com/run/docs/quickstarts/deploy-container)
+[Deploying container images to Cloud Run](https://cloud.google.com/run/docs/deploying)
 
-**gcloud run services list**: List all Cloud Run services deployed
+- **gcloud run services list**: List all Cloud Run services deployed
 
 # Tips and Hints
 
