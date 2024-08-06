@@ -82,6 +82,14 @@ So, if you want to update your deployment with the last code changes, you have t
 
 **PR** is the acronym for **Pull Request**
 
+### GCP service account
+
+In order to automaticaly create and active the GCP services account necessary for your project, follow these steps:
+1. From your [Firebase console](https://console.firebase.google.com/), go to your project
+2. Click on the 'Project Settings' gear icon on the left panel
+3. Click on the '**Service accounts**' tab
+4. Click on the '**4 service accounts**' link besides the GCP icon
+
 ## Preview Channel
 
 Firebase Hosting has a feature called **Preview Channels** where you can deploy a verion of your site to a generated short lived URL. They are great in a GitHub workflow.
