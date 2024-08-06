@@ -3,6 +3,8 @@ title: 'Firebase'
 date: 2019-02-11T19:27:37+10:00
 ---
 
+# Basics
+
 ## Installation
 
 ```
@@ -31,7 +33,9 @@ firebase hosting:channel:deploy stage --expires 2d      // Create a Preview Chan
 firebase hosting:channel:delete stage                   // Delete a Preview Channel called stage 
 ```
 
-## Deploy Hugo site
+# Deploy static site
+
+## Deploy Hugo site to Firebase Hosting
 
 - Use an existing repository or create a new one
 - Within the root directory of the web project, type: `$ firebase init hosting`
@@ -42,6 +46,24 @@ There is not CI/CD process here. Pushing to your GitHub repository will only upd
 
 So, if you want to update your deployment with the last code changes, you have to run `hugo && firebase deploy`
 
+# Deploy dynamic site
+
+## Cloud Run to Firebase Hosting
+
+1. Access your GCP [console](https://console.cloud.google.com)
+2. Go to [Cloud Run](https://console.cloud.google.com/run)
+3. Click on '**Manage Custom Domains**' button
+4. Click on '**Add mapping**' button
+5. From the drop down menu, select a service to map to
+6. Click on '**Firebase Hosting**'
+7. Type in the subdomain name (must be available)
+8. If not set yet, click on '**Grant All**' button to grant the necessary permissions to deploy the integration
+9. If not set yet, click on '**Enable**' to enable the required APIs
+10. Click on the '**Submit**' button
+
+
+
+# CI/CD
 
 # Failing to setup CI/CD (ignore all instructions below)
 
