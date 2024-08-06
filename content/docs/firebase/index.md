@@ -14,16 +14,16 @@ $ curl -sL https://firebase.tools | bash
 $ curl -sL https://firebase.tools | upgrade=true bash
 ```
 
-## Setup
+## Authentication
 ```
 $ firebase login
 ```
 
 ## Commands
-
-- firebase init
-- firebase projects:list
-
+```
+firebase init
+firebase projects:list
+```
 
 ## Deploy Hugo site
 
