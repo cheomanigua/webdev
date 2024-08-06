@@ -1,6 +1,7 @@
 ---
 title: "Docker"
 description: "Docker main concepts and reference"
+weight: 4
 ---
 
 ### Installation

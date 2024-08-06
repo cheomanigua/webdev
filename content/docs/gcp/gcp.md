@@ -1,6 +1,7 @@
 ---
 title: "GCP"
 description: "Google Cloud Platform reference commands"
+weight: 5
 ---
 
 ## Command utils

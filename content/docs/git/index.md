@@ -1,7 +1,7 @@
 ---
-title: 'Basics'
+title: 'Git'
 date: 2019-02-11T19:27:37+10:00
-
+weight: 1
 ---
 
 In this tutorial you'll learn how to create and maintain a version control system for your project, as if you just installed the operating system. This tutorial assumes that you already have a project in your local machine.
