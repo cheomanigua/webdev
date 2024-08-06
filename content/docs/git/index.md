@@ -67,3 +67,19 @@ git add .
 git commit -m 'some changes'
 git push
 ```
+
+# Operations
+
+## Git clone
+
+- `git clone`
+- Download a whole repository from GitHub
+- Used when a new developer is going to work in the project
+
+## Git pull
+
+- `git pull`
+- It is the same as `git fetch` + `git merge`
+- Updates a local repository to the latest changes from GitHub
+- Before pulling, push any local change to GitHub
+- It is recommended to pull frequenctly when working within a team
