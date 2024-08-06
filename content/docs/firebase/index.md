@@ -16,13 +16,19 @@ $ curl -sL https://firebase.tools | upgrade=true bash
 
 ## Authentication
 ```
-$ firebase login
+$ firebase login                            // first time login after installation
+$ firebase login:add another@email.com      // add another account
+$ firebase login:use this@email.com         // switch between accounts
 ```
 
 ## Commands
 ```
-firebase init
+firebase init hosting
+firebase init hosting:github  // set up github connection if it was not set during 'firebase init hosting'
 firebase projects:list
+firebase hosting:channel:list
+firebase hosting:channel:deploy foo --expires 2d
+firebase hosting:channel:delete foo 
 ```
 
 ## Deploy Hugo site
