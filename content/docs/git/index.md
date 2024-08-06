@@ -52,6 +52,7 @@ The files `id_rsa` and `id_rsa.pub` have been created in the `.ssh` directory. C
 2. Create a `.gitignore` file of your liking
 3. Then, issue these commands:
 ```bash
+git init
 git add .
 git commit -m 'first commit'
 git branch -M main
