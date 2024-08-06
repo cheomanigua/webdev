@@ -217,59 +217,6 @@ Scaling services with *docker-compose* is as simple as:
 docker-compose up -d --scale myservice=3
 ```
 
-## Swarm
-
-- Start a Swarm cluster master node
-```
-docker swarm init --advertise-addr [IP_ADDRESS]
-```
-
-Copy the token
-
-
-- Add a node in the Swarm cluster
-
-From a new machine, issue:
-```
-docker swarm join --token [the_copied_token] [IP_ADDRESS_OF_MASTER_NODE]:2377
-```
-
-- See all nodes in the cluster
-```
-docker node ls
-```
-
-- Create/Deploy a service/application in the Swarm cluster
-```
-docker service create --name [NAME] --publish published=8080,target=80 --replicas 2 httpd 
-```
-
-- See running servcies
-```
-docker sevice ls
-```
-
-- See specific service information
-```
-docker service ps [NAME]
-```
-
-- Scale a servcie
-```
-docker service scale [NAME]=3
-```
-
-- Update a service with a new/old version
-```
-docker service update --image redis:3.0.7 redis
-```
-
-- Delete Swarm machine
-```
-rm -rf /var/lib/docker/swarm
-systemctl restart docker
-```
-
 # Deploy docker image to Google Cloud Run
 
 

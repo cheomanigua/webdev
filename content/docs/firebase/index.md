@@ -65,7 +65,7 @@ So, if you want to update your deployment with the last code changes, you have t
 
 # CI/CD
 
-# Failing to setup CI/CD (ignore all instructions below)
+## Failing to setup CI/CD (ignore all instructions below)
 
 ## Deploy Hugo site with GitHub
 
