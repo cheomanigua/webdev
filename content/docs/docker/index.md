@@ -66,9 +66,14 @@ sudo usermod -aG docker $USER
 - **docker builder prune**: Remove all dangling build cache
 - **docker system prune -a**: Delete all images, containers and cache
 
-### Creating a nginx container
+## Creating a nginx container
 
 `docker run -d -p 8080:80 --name mynginx nginx` 
+
+The above command does the following:
+
+1. Create a **nginx** container in the background called **mynginx** by using the image **nginx**. If the image **nginx** is not already in our system, it will be downloaded automatically from Docker Hub.
+2. Use port **8080** to access the website
 
 To browse, visit **localhost:8080** on a web browser
 
@@ -81,40 +86,6 @@ Pages are served from `/usr/share/nginx/html`
 ### Finding the IP of a container
 `docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' container_name_or_id`
 
-## Volumes
-
-### Volumes for development use
-
-* Dockerfile:
-```dockerfile
-FROM php:7.2-apache
-COPY src/ /var/www/html/
-EXPOSE 80
-```
-**home/user/mywebsite:~$**: `docker build -t myimage .`
-
-The above command does the following:
-* Build an image of an apache server with php
-* Copy the content of `/home/user/mywebsite/src/` into the the apache `/var/www/html/` serving directory
-* Expose port 80 so it can be reached
-
-Next we run:
-
-`docker run -d -p 8080:80 -v /home/user/mywebsite/src/:/var/www/html --name mywebsite myimage` 
-
-The above command does the following:
-
-* Create a **nginx** container in the background called **mywebsite**
-* Use port 8080 to access the website
-* Mount the container directory `/var/www/html/` on to local directory `/home/user/mywebsite/src/` where the source code of the site is held. 
-* We can now create and edit **index.php** and other files and directories directly in `/home/user/mywebsite/src/`, and it will update automatically.
-* We can visit the website on **localhost:8080**
-
-### Delete unused or lost volumes
-```
-$ docker volume rm $(docker volume ls -qf dangling=true)
-$ docker volume ls -qf dangling=true | xargs -r docker volume rm
-```
 
 ## Building our own image
 
@@ -200,6 +171,41 @@ docker logout
 
 **Note**: It takes 24-48 hours for Docker Hub to index the image
 
+
+## Volumes
+
+### Volumes for development use
+
+* Dockerfile:
+```dockerfile
+FROM php:7.2-apache
+COPY src/ /var/www/html/
+EXPOSE 80
+```
+**home/user/mywebsite:~$**: `docker build -t myimage .`
+
+The above command does the following:
+* Build an image of an apache server with php
+* Copy the content of `/home/user/mywebsite/src/` into the the apache `/var/www/html/` serving directory
+* Expose port 80 so it can be reached
+
+Next we run:
+
+`docker run -d -p 8080:80 -v /home/user/mywebsite/src/:/var/www/html --name mywebsite myimage` 
+
+The above command does the following:
+
+* Create a **nginx** container in the background called **mywebsite**
+* Use port 8080 to access the website
+* Mount the container directory `/var/www/html/` on to local directory `/home/user/mywebsite/src/` where the source code of the site is held. 
+* We can now create and edit **index.php** and other files and directories directly in `/home/user/mywebsite/src/`, and it will update automatically.
+* We can visit the website on **localhost:8080**
+
+### Delete unused or lost volumes
+```
+$ docker volume rm $(docker volume ls -qf dangling=true)
+$ docker volume ls -qf dangling=true | xargs -r docker volume rm
+```
 
 ## Docker compose
 
