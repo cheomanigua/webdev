@@ -37,9 +37,14 @@ firebase hosting:channel:delete stage                   // Delete a Preview Chan
 
 ## Deploy Hugo site to Firebase Hosting
 
-- Use an existing repository or create a new one
-- Within the root directory of the web project, type: `$ firebase init hosting`
-- Within the root directory of the web project, type: `$ hugo && firebase deploy`
+1. Go to [Firebase](https://console.firebase.google.com) and create a new project
+2. In your local machine, in the root directory of your Hugo project, type: `$ firebase init hosting`
+    - **? Select a default Firebase project for this directory:** up/down cursor + enter
+    - **? What do you want to use as your public directory? *public*** enter
+    - **? Configure as a single-page app (rewrite all urls to /index.html)? *(y/N)*** enter
+    - **? Set up automatic builds and deploys with GitHub? *(y/N)*** enter 
+
+3. In your local machine, in the root directory of your Hugo project, type: `$ hugo && firebase deploy`
 
 ### GitHub
 There is not CI/CD process here. Pushing to your GitHub repository will only update your GitHub repository, it won't affect the current Hugo deployment. 

@@ -25,7 +25,7 @@ $ sudo dpkg -i hugo_extended_0.131.0_linux-amd64.deb
 
 ### 2. Repository packages (outdated)
 
-If you are using Debian or its derivative distros, installing **hugo** from the packages repository will install Go and Dart Sass along side hugo:
+If you are using Debian or its derivative distros, run:
 
 ```
 $ sudo apt install hugo
