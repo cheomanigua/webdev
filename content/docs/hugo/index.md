@@ -13,12 +13,15 @@ Although not required in all cases, [Git](https://git-scm.com/), [Go](https://go
 
 ## Methods
 
-### 1. Prebuilt binaries (preferred, last version)
+### 1. Prebuilt binaries (latest)
 
 Visit the [latest release](https://github.com/gohugoio/hugo/releases/latest) and scroll down to the Assets section. If you are using Debian or its derivative distros, follow these steps:
 
-1. Download the last .deb package 
-2. Extract the archive (no need for .deb packages)
+1. Download the last extended .deb package: `hugo_extended_0.131.0_linux-amd64.deb`
+2. Run:
+```
+$ sudo dpkg -i hugo_extended_0.131.0_linux-amd64.deb
+```
 
 ### 2. Repository packages (outdated)
 
