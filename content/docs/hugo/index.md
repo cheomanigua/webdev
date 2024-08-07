@@ -9,22 +9,24 @@ weight: 100
 
 ## Prerequisites
 
-Although not required in all cases, [Git](https://git-scm.com/), [Go](https://go.dev/), and [Dart Sass](https://gohugo.io/hugo-pipes/transpile-sass-to-css/#dart-sass) are commonly used when working with Hugo.
+Although not required in all cases, [Git](https://git-scm.com/), [Go](https://go.dev/), and [Dart Sass](https://gohugo.io/hugo-pipes/transpile-sass-to-css/#dart-sass) are commonly used when working with Hugo. The following two methods to install '**Hugo**' also take care of the necessary dependecies.
 
-If you are using Debian or its derivatives, installing **hugo** from the packages repository will install Go and Dart Sass along side hugo:
+## Methods
+
+### 1. Prebuilt binaries (preferred, last version)
+
+Visit the [latest release](https://github.com/gohugoio/hugo/releases/latest) and scroll down to the Assets section. If you are using Debian or its derivative distros, follow these steps:
+
+1. Download the last .deb package 
+2. Extract the archive (no need for .deb packages)
+
+### 2. Repository packages (outdated)
+
+If you are using Debian or its derivative distros, installing **hugo** from the packages repository will install Go and Dart Sass along side hugo:
 
 ```
 $ sudo apt install hugo
 ```
-
-## Prebuilt binaries
-
-Visit the [latest release](https://github.com/gohugoio/hugo/releases/latest) and scroll down to the Assets section.
-1. Download the archive for the desired edition, operating system, and architecture
-2. Extract the archive
-3. Move the executable to the desired directory
-4. Add this directory to the PATH environment variable
-5. Verify that you have execute permission on the file
 
 # Create a site
 
@@ -55,24 +57,28 @@ $ git clone https://github.com/[user-account]/[hugo-theme].git themes/[hugo-them
 $ cp -a themes[hugo-theme]/exampleSite/. .
 ```
 If you want to update the theme:
+
 ```
 $ cd themes/[hugo-theme]
 $ git pull
 ```
 
 ##### 2. Git Submodule
+
 ```
 $ git submodule add https://github.com/[user-account]/[hugo-theme].git themes/[hugo-theme]
 ```
 
 When using CI/CD for Hugo website deployment, it’s essential to ensure that the following command is executed before running the `hugo` command.
+
 ```
 $ git submodule update --init --recursive
 ```
 
 If you want to update the theme:
+
 ```
-git submodule update --remote --merge themes/[hugo-theme]
+$ git submodule update --remote --merge themes/[hugo-theme]
 ```
 
 [Git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) is meant to separate your main project from another project within it. In above case the other project is the theme repository.
@@ -87,7 +93,7 @@ Download the theme as a **zip** file. Extract in the directory `themes/[hugo-the
 ```
 $ hugo mod init github.com/[your_user]/[your_project] 
 ```
-- Import the theme by adding it in your `config.yml` file:
+- Import the theme by adding it in your `hugo.yml` file:
 ```
 module:
   imports:
@@ -103,7 +109,7 @@ More information about Hugo Modules: [https://gohugo.io/hugo-modules/use-modules
 
 ### Set the theme in your config file
 
-In all cases four casas, be sure that your project's `config.toml` file has the theme added:
+In all four cases, be sure that your project's `config.toml` file has the theme added:
 ```
 $ echo "theme = 'theme-name'" >> config.toml
 ```
@@ -115,10 +121,16 @@ In Hugo, layouts can live in either the project’s (root) or the themes’ layo
 For example: `layouts/_default/baseof.html` will override `themes/[hugo-theme]/layouts/_default/baseof.html`. So, you can easily customize the theme without editing it directly, which makes updating the theme easier.
 
 ## Add content
+
 ```
-$ hugo new content/posts/my-first-post.md
+$ hugo new about.md
 ```
-Hugo created the file in the `content/posts` directory.
+Hugo created the file in the `content/` directory.
+
+```
+$ hugo new posts/my-first-post.md
+```
+Hugo created the file in the `content/posts/` directory.
 
 If you open the file with your editor, you'll notice that the file has a [front matter](https://gohugo.io/content-management/front-matter/) already populated. This template is fetched from your project's `archetypes` directory. You can edit the archetype files to customize the front matter.
 
