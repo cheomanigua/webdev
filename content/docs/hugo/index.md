@@ -9,7 +9,7 @@ weight: 100
 
 ## Prerequisites
 
-Although not required in all cases,[Git](https://git-scm.com/), [Go](https://go.dev/), and [Dart Sass](https://gohugo.io/hugo-pipes/transpile-sass-to-css/#dart-sass) are commonly used when working with Hugo.
+Although not required in all cases, [Git](https://git-scm.com/), [Go](https://go.dev/), and [Dart Sass](https://gohugo.io/hugo-pipes/transpile-sass-to-css/#dart-sass) are commonly used when working with Hugo.
 
 If you are using Debian or its derivatives, installing **hugo** from the packages repository will install Go and Dart Sass along side hugo:
 
@@ -41,20 +41,78 @@ hugo server
 
 Visit your Hugo site at [http://localhost:1313](http://localhost:1313)
 
-## Themes
+# Themes
 
-In order for a Hugo site to work, there must be at least one theme present in the project. There are two ways to download and add themes for your project:
+In order for a Hugo site to work, there must be at least one theme present in the project.
 
-- Adding a git submodule with the theme, as we did above. [Git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) is used to separate your main project from another project within it, in above case the other project is *theNewDynamic*.
-- Cloning the theme directly from *GitHub*:
+### Add a theme
+
+There are four ways to download and add themes for your project:
+
+##### 1. Git Clone
 ```
-git clone https://github.com/[user]/[hugo-theme].git themes/[hugo-theme]
-cp -a themes[hugo-theme]/exampleSite/. .
+$ git clone https://github.com/[user-account]/[hugo-theme].git themes/[hugo-theme]
+$ cp -a themes[hugo-theme]/exampleSite/. .
 ```
-Be sure that your project's `config.toml` file has the theme added:
+If you want to update the theme:
+```
+$ cd themes/[hugo-theme]
+$ git pull
+```
+
+##### 2. Git Submodule
+```
+$ git submodule add https://github.com/[user-account]/[hugo-theme].git themes/[hugo-theme]
+```
+
+When using CI/CD for Hugo website deployment, it’s essential to ensure that the following command is executed before running the `hugo` command.
+```
+$ git submodule update --init --recursive
+```
+
+If you want to update the theme:
+```
+git submodule update --remote --merge themes/[hugo-theme]
+```
+
+[Git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) is meant to separate your main project from another project within it. In above case the other project is the theme repository.
+
+##### 3. Download an unzip
+
+Download the theme as a **zip** file. Extract in the directory `themes/[hugo-theme]`.
+
+##### 4. Hugo module
+
+- Initialize your own hugo module system:
+```
+$ hugo mod init github.com/[your_user]/[your_project] 
+```
+- Import the theme by adding it in your `config.yml` file:
+```
+module:
+  imports:
+  - path: github.com/[user-account]/[hugo-theme]
+```
+If you want to update the theme:
+```
+$ hugo mode get -u github.com/[user-account]/[hugo-theme]
+```
+
+More information about Hugo Modules: [https://gohugo.io/hugo-modules/use-modules/](https://gohugo.io/hugo-modules/use-modules/)
+
+
+### Set the theme in your config file
+
+In all cases four casas, be sure that your project's `config.toml` file has the theme added:
 ```
 $ echo "theme = 'theme-name'" >> config.toml
 ```
+
+### Overriding a theme
+
+In Hugo, layouts can live in either the project’s (root) or the themes’ layout folders. Any template inside the root layout folder will override the theme’s layout that is relative to it.
+
+For example: `layouts/_default/baseof.html` will override `themes/[hugo-theme]/layouts/_default/baseof.html`. So, you can easily customize the theme without editing it directly, which makes updating the theme easier.
 
 ## Add content
 ```
@@ -66,11 +124,16 @@ If you open the file with your editor, you'll notice that the file has a [front 
 
 The archetype files in the root directory will override the archetype files in `themes/[hugo-theme]/
 
+If you run `hugo server`, your new post does not appear. Why? See the next section to find out.
+
 ### Front matter
-If `draft = true` is present in the front matter for a particular file, Hugo won't publish that file when building the site or running the developer server. You can override that behavior during development by running:
+If `draft: true` is present in the front matter for a particular file, Hugo won't publish that file when building the site or running the developer server. You can override that behavior during development by running:
 ```
 $ hugo server -D
 ```
+
+Or you just can delete `draft: true` altogether or set it to `false` and run `hugo server` by itself.
+
 
 ## Running the site in developer mode
 
