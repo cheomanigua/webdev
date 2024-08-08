@@ -52,7 +52,7 @@ In order for a Hugo site to work, there must be at least one theme present in th
 
 ### Add a theme
 
-There are four different methods for to downloading and adding themes to your project:
+There are four different methods to download and add themes to your project: Git clone, Git submodule, Zip file and Hugo module. 
 
 ##### 1. Git Clone
 ```
@@ -90,7 +90,7 @@ $ git submodule update --remote --merge themes/[hugo-theme]
 
 Download the theme as a **zip** file. Extract in the directory `themes/[hugo-theme]`.
 
-##### 4. Hugo module
+##### 4. Hugo module (preferred)
 
 - Initialize your own hugo module system:
 ```
