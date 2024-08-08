@@ -99,7 +99,7 @@ $ hugo mod init github.com/[your_user]/[your_project]
 
 - Add the Theme Module
 ```
-$ hugo mod init github.com/[user-account]/[hugo-theme] 
+$ hugo mod get github.com/[user-account]/[hugo-theme] 
 ```
 
 - Configure the theme by adding it in your `hugo.toml` file:

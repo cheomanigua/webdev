@@ -3,6 +3,16 @@ title: "GCP"
 description: "Google Cloud Platform reference commands"
 weight: 5
 ---
+## Installation
+
+```
+$ curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-x86_64.tar.gz
+$ tar -xf google-cloud-cli-linux-x86_64.tar.gz
+$ ./google-cloud-sdk/install.sh
+```
+
+The installation script will update automatically `.bashrc` to add cloud to the path. The path is set initially where the uncompressed directory is.
+
 
 ## Command utils
 - **gcloud**: primary CLI tool to create and manage Google Cloud resource. [Info](https://cloud.google.com/sdk/gcloud/) | [Install](https://cloud.google.com/sdk/install) | [Initialize](https://cloud.google.com/sdk/docs/initializing)
@@ -16,6 +26,7 @@ weight: 5
 
 ## General information
 ```
+gcloud components update    // updates gcloud
 gcloud init // first thing to do after installing gcloud
 gcloud info
 
