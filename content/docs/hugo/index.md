@@ -52,7 +52,7 @@ In order for a Hugo site to work, there must be at least one theme present in th
 
 ### Add a theme
 
-There are four ways to download and add themes for your project:
+There are four different methods for to downloading and adding themes to your project:
 
 ##### 1. Git Clone
 ```
@@ -96,11 +96,15 @@ Download the theme as a **zip** file. Extract in the directory `themes/[hugo-the
 ```
 $ hugo mod init github.com/[your_user]/[your_project] 
 ```
-- Import the theme by adding it in your `hugo.yml` file:
+
+- Add the Theme Module
 ```
-module:
-  imports:
-  - path: github.com/[user-account]/[hugo-theme]
+$ hugo mod init github.com/[user-account]/[hugo-theme] 
+```
+
+- Configure the theme by adding it in your `hugo.toml` file:
+```
+theme = "github.com/[user-account]/[hugo-theme]"
 ```
 If you want to update the theme:
 ```
@@ -112,10 +116,15 @@ More information about Hugo Modules: [https://gohugo.io/hugo-modules/use-modules
 
 ### Set the theme in your config file
 
-In all four cases, be sure that your project's `config.toml` file has the theme added:
+In the first three methods, be sure that your project's `config.toml` file has the theme added:
 ```
 $ echo "theme = 'theme-name'" >> config.toml
 ```
+or
+```
+$ echo "theme = 'theme-name'" >> hugo.toml
+```
+
 
 ### Overriding a theme
 

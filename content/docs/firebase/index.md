@@ -66,6 +66,11 @@ So, if you want to update your deployment with the last code changes, you have t
 9. If not set yet, click on '**Enable**' to enable the required APIs
 10. Click on the '**Submit**' button
 
+### Use case
+
+**Cloud Run** allows you to easily serve your backend code written in any programming language. **Firebase** adds a custom domain, a global content delivery network, and many more useful integrations. Together, Firebase and Cloud Run make it easy to build and deploy web apps that can handle large amounts of traffic.
+
+
 
 
 # CI/CD
