@@ -4,7 +4,7 @@ description: "Google Cloud Run reference"
 weight: 6
 ---
 
-There are several ways to deploy your apps to Cloud Run
+There are several ways to deploy your apps to Cloud Run.
 
 ## 1. Deploy from source code 
 
@@ -15,13 +15,13 @@ $ gcloud projects add-iam-policy-binding [PROJECT-NAME] --member="serviceAccount
 
 2. In your local machine, go to your project's root directory.
 
-3. There must by a Dockerfile in the project's root directory.
+3. A Dockerfile must be present in the project's root directory.
 
 4. Run: `$ gcloud run deploy`
 
 You will be prompted to respond several questions:
 - **Source code location (/home/user/Code/myapp/)**: *press enter if you already are in your project root directory*
-- **Service name (go-server)**: *myapp*
+- **Service name (myapp)**: *myapp*
 - **Please specify a region. Please enter numeric choice or text value (must exactly match list item)**: *32*
 - **Allow unauthenticated invocations to [myapp] (y/N)?** ***yes** if you want people to visit your app* 
 

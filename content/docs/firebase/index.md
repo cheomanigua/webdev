@@ -35,7 +35,7 @@ firebase hosting:channel:delete stage                   // Delete a Preview Chan
 
 # Deploy static site
 
-## Deploy Hugo site to Firebase Hosting
+## 1. Deploy Hugo site to Firebase Hosting
 
 1. Go to [Firebase](https://console.firebase.google.com) and create a new project
 2. In your local machine, in the root directory of your Hugo project, type: `$ firebase init hosting`
@@ -53,7 +53,7 @@ So, if you want to update your deployment with the last code changes, you have t
 
 # Deploy dynamic site
 
-## Cloud Run to Firebase Hosting
+## 2. Cloud Run to Firebase Hosting
 
 1. Access your GCP [console](https://console.cloud.google.com)
 2. Go to [Cloud Run](https://console.cloud.google.com/run)
