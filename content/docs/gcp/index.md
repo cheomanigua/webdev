@@ -1,5 +1,5 @@
 ---
-title: "GCP"
+title: "Google Cloud Platform"
 description: "Google Cloud Platform reference commands"
 weight: 5
 ---
@@ -38,6 +38,7 @@ gcloud config set account john@doe.com // switch to specified account
 gcloud config set project [PROJECT_ID] // switch to specified project
 gcloud config set compute/zone [ZONE] // set default zone for gcloud
 gcloud config set artifacts/location us-central1
+gloud iam service-accounts list
 
 gcloud projects list
 gcloud projects describe [PROJECT_ID]

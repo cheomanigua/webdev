@@ -1,25 +1,56 @@
 ---
-title: "Cloud Run"
+title: "Google Cloud Run"
 description: "Google Cloud Run reference"
 weight: 6
 ---
 
-# Deploy docker image to Google Cloud Run
+There are several ways to deploy your apps to Cloud Run
+
+## 1. Deploy from source code 
+
+1. The service account will need the **storage.objects.list** permission in order to deploy to Cloud Run. Assigning the role **cloudbuild.builds.builder** will grant that permission among others:
+```
+$ gcloud projects add-iam-policy-binding [PROJECT-NAME] --member="serviceAccount:[ACCOUNT-ID]-compute@developer.gserviceaccount.com" --role="roles/cloudbuild.builds.builder"
+```
+
+2. In your local machine, go to your project's root directory.
+
+3. There must by a Dockerfile in the project's root directory.
+
+4. Run: `$ gcloud run deploy`
+
+You will be prompted to respond several questions:
+- **Source code location (/home/user/Code/myapp/)**: *press enter if you already are in your project root directory*
+- **Service name (go-server)**: *myapp*
+- **Please specify a region. Please enter numeric choice or text value (must exactly match list item)**: *32*
+- **Allow unauthenticated invocations to [myapp] (y/N)?** ***yes** if you want people to visit your app* 
+
+After answering the questions, gcloud will upload the source code to Google Cloud where it will start to build an image. This image will be stored in a repository in **Artifact Registry**. This image will then be deployed to Cloud Run.
+
+All the process is printed out in the terminal with its status. After a succesful operation, you will get the URL of your app.
+
+You can check the service deployed by running:
+
+```
+$ gcloud run services list
+```
+
+## 2. Deploy container image 
 
 
-## Push local image to Google Artifact Registry
+### 2.1 Push local image to Google Artifact Registry
 
 - Quick start: [https://cloud.google.com/artifact-registry/docs/docker/store-docker-container-images](https://cloud.google.com/artifact-registry/docs/docker/store-docker-container-images)
 
 - Overview: [https://cloud.google.com/artifact-registry/docs/docker](https://cloud.google.com/artifact-registry/docs/docker)
 
-### Set defaults
+#### Set defaults
 
 ```
 $ gcloud config set project [project-name]
 ```
 
-### Push local docker image to a Docker repository at Google Cloud Artifact Registry
+#### Push local docker image to a Docker repository at Google Cloud Artifact Registry
 
 1. Enable Artifact Registry API [[docs](https://cloud.google.com/sdk/gcloud/reference/services/enable)]
 ```
@@ -79,9 +110,13 @@ $ gcloud artifacts docker images list us-central1-docker.pkg.dev/beach-walks-azu
 ```
 
 
-## Deploy image to Cloud Run
+### 2.2 Deploy image to Cloud Run
 
 - [Quickstart: Deploy to Cloud Run](https://cloud.google.com/run/docs/quickstarts/deploy-container)
 - [Deploying container images to Cloud Run](https://cloud.google.com/run/docs/deploying)
 
-- **gcloud run services list**: List all Cloud Run services deployed
+You can check the service deployed by running:
+
+```
+$ gcloud run services list
+```
