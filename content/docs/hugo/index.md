@@ -69,6 +69,7 @@ $ git pull
 ##### 2. Git Submodule
 
 ```
+$ git init
 $ git submodule add https://github.com/[user-account]/[hugo-theme].git themes/[hugo-theme]
 ```
 

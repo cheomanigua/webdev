@@ -33,9 +33,9 @@ firebase hosting:channel:deploy stage --expires 2d      // Create a Preview Chan
 firebase hosting:channel:delete stage                   // Delete a Preview Channel called stage 
 ```
 
-# Deploy static site
+# Deploying
 
-## 1. Deploy Hugo site to Firebase Hosting
+## 1. Hugo site to Firebase Hosting (static site)
 
 1. Go to [Firebase](https://console.firebase.google.com) and create a new project
 2. In your local machine, in the root directory of your Hugo project, type: `$ firebase init hosting`
@@ -51,9 +51,8 @@ There is not CI/CD process here. Pushing to your GitHub repository will only upd
 
 So, if you want to update your deployment with the last code changes, you have to run `hugo && firebase deploy`
 
-# Deploy dynamic site
 
-## 2. Cloud Run to Firebase Hosting
+## 2. Cloud Run app to Firebase Hosting (dynamic site)
 
 1. Access your GCP [console](https://console.cloud.google.com)
 2. Go to [Cloud Run](https://console.cloud.google.com/run)
