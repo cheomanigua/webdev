@@ -3,6 +3,7 @@ title: "Google Cloud Run"
 description: "Google Cloud Run reference"
 weight: 6
 ---
+# Deploying a service
 
 There are several ways to deploy your apps to Cloud Run.
 
@@ -120,3 +121,23 @@ You can check the service deployed by running:
 ```
 $ gcloud run services list
 ```
+
+# Deleting a service
+
+If you don't know the name and the region of the service to be deleted, you can check the list of active services:
+
+```
+$ gcloud run services list
+```
+
+Once you know the service name and region, you can delete it:
+
+```
+$ gcloud run services delete SERVICE --region REGION
+```
+
+- Deleting a service deletes all resources related to this service, including all revisions of this service whether they are serving traffic or not.
+- Deleting a service does not automatically remove container images from Container Registry. To delete container images used by the deleted revisions from Container Registry, refer to Deleting images.
+- Deleting a service with one or more Eventarc triggers does not automatically delete these triggers. To delete the triggers refer to Manage triggers.
+- After deletion, the service remains visible in the Google Cloud console and in the command line interface until the deletion is fully complete. However, you cannot update the service.
+- Deleting a service is permanent: there is no undo or restore. However, if after deleting a service, you deploy a new service with the same name in the same region, it will have the same endpoint URL.

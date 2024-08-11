@@ -24,13 +24,19 @@ $ firebase login:use this@email.com         // switch between accounts
 ```
 
 ## Commands
+
+The following commands are not global. They only affect the directory where the project is present.
+
 ```
-firebase init hosting
-firebase init hosting:github  // set up github connection if it was not set during 'firebase init hosting'
+firebase init hosting           // set up a hosting service
+firebase init hosting:github    // set up github connection if it was not set during 'firebase init hosting'
 firebase projects:list
 firebase hosting:channel:list                           // List all Preview Channels
 firebase hosting:channel:deploy stage --expires 2d      // Create a Preview Channel called stage
 firebase hosting:channel:delete stage                   // Delete a Preview Channel called stage 
+firebase use                    // View a list of currently defined aliases for your project directory 
+firebase use --add              // Add another Firebase project to run commands from the current project directory 
+firebase use --clear            // Clears the active project
 ```
 
 # Deploying
@@ -39,6 +45,7 @@ firebase hosting:channel:delete stage                   // Delete a Preview Chan
 
 1. Go to [Firebase](https://console.firebase.google.com) and create a new project
 2. In your local machine, in the root directory of your Hugo project, type: `$ firebase init hosting`
+    - **? Please select an option:** '*> Use an existing project*' enter
     - **? Select a default Firebase project for this directory:** up/down cursor + enter
     - **? What do you want to use as your public directory? *public*** enter
     - **? Configure as a single-page app (rewrite all urls to /index.html)? *(y/N)*** enter
