@@ -77,7 +77,16 @@ So, if you want to update your deployment with the last code changes, you have t
 **Cloud Run** allows you to easily serve your backend code written in any programming language. **Firebase** adds a custom domain, a global content delivery network, and many more useful integrations. Together, Firebase and Cloud Run make it easy to build and deploy web apps that can handle large amounts of traffic.
 
 
+# Deleting
 
+1. In your local computer, go to your project's directory and delete the following files and directory: `firebase.json`, `.firebaserc` and `.firebase/`
+2. If you also wants to delete the project in the Firebase web console:
+    1. Go to your [Firebase console](https://console.firebase.google.com/)
+    2. Select the project you want to delete
+    3. Go to the [Project settings](https://console.firebase.google.com/project/_/settings/general/)
+    4. At the bottom of the **General** settings page, click **Delete project**
+    5. Select each checkbox to acknowledge the effects of deleting your project
+    6. Click **Delete project**
 
 # CI/CD
 
