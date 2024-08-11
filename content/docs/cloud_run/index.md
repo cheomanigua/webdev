@@ -5,7 +5,7 @@ weight: 6
 ---
 # Deploying a service
 
-There are several ways to deploy your apps to Cloud Run.
+There are several ways to deploy your apps to Cloud Run:
 
 ## 1. Deploy from source code 
 
