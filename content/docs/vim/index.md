@@ -260,6 +260,7 @@ let mapleader = ","
 set tabstop=2
 set autoindent
 set number " enable line numbering
+set relativenumber "enable relative line number
 syntax enable " syntax highlighting enabled
 
 
@@ -435,7 +436,7 @@ $ nvim
 ```
 
 ### Edit config file
-Within NeoVim, type: `e: $MYVIMRC`
+Within NeoVim, type: `:e $MYVIMRC`
 
 ### Golang support
 1. Edit the config file and uncomment this line:
