@@ -90,7 +90,33 @@ You might wonder when it’s useful to have a data type that’s associated only
 
 ## Composition
 
-[https://youtu.be/c8H0w4yBL10?si=7iMCPaoy_tg6-qL2&t=578](https://youtu.be/c8H0w4yBL10?si=7iMCPaoy_tg6-qL2&t=578)
+```go
+package main
+
+import "fmt"
+
+type character struct {
+	name         string
+	strength     uint8
+	dextery      uint8
+	intelligence uint8
+	inventory
+}
+
+type inventory struct {
+	weapon string
+	armor  string
+}
+
+var human character = character{"Human", 10, 13, 8, inventory{"sword", "chain mail"}}
+
+func main() {
+	fmt.Println(human.name, human.strength, human.weapon, human.armor)
+}
+```
+
+The above code will print: `Human 10 sword chain mail`
+
 
 ## Pointers
 
