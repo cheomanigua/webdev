@@ -141,3 +141,31 @@ $ gcloud run services delete SERVICE --region REGION
 - Deleting a service with one or more Eventarc triggers does not automatically delete these triggers. To delete the triggers refer to Manage triggers.
 - After deletion, the service remains visible in the Google Cloud console and in the command line interface until the deletion is fully complete. However, you cannot update the service.
 - Deleting a service is permanent: there is no undo or restore. However, if after deleting a service, you deploy a new service with the same name in the same region, it will have the same endpoint URL.
+
+
+# Artifact Registry management
+
+### List repositories
+
+```
+$ gcloud artifacts repositories list
+```
+
+### Delete a repository
+
+```
+$ gcloud artifacts repositories delete REPOSITORY-NAME
+```
+
+### List images in a repository
+
+```
+$ gcloud artifacts docker images list us-central1-docker.pkg.dev/PROJECT-NAME/REPOSITORY-NAME
+```
+
+### Delete an image in a repository
+
+```
+$ gcloud artifacts docker images delete us-central1-docker.pkg.dev/PROJECT-NAME/REPOSITORY-NAME/IMAGE-NAME
+```
+

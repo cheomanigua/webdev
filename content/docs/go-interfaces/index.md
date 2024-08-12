@@ -53,7 +53,7 @@ func main() {
 
     fmt.Println("Rectangle:")
     measure(r)
-    fmt.Printl("Circle:")
+    fmt.Println("Circle:")
     measure(c)
 }
 ```
