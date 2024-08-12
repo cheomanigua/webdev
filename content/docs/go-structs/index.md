@@ -90,35 +90,39 @@ You might wonder when it’s useful to have a data type that’s associated only
 
 ## Composition
 
+Composition is similar to OOP languages inheritance. While Go doesn’t have inheritance, it encourages code reuse via built-in support for composition and promotion.
+
 ```go
 package main
 
 import "fmt"
 
-type character struct {
-	name         string
-	strength     uint8
-	dextery      uint8
-	intelligence uint8
-	inventory
+type employee struct {
+	name    string
+	age     uint8
+	address
 }
 
-type inventory struct {
-	weapon string
-	armor  string
+type address struct {
+	street string
+	city  string
 }
 
-var human character = character{"Human", 10, 13, 8, inventory{"sword", "chain mail"}}
+var employee1 employee = employee{"John Doe", 43, address{"Main Street", "London"}}
 
 func main() {
-	fmt.Println(human.name, human.strength, human.weapon, human.armor)
+	fmt.Println(employee1.name, employee1.age, employee1.street, employee1.city)
 }
 ```
 
-The above code will print: `Human 10 sword chain mail`
+The above code will print: `John Doe 43 Main Street London`
 
 
-## Pointers
+## Methods & Pointers
+
+Methods are functions on user defined types like structs. They are the equivalent to class methods in OOP languages. Method declarations look like function declarations, with one addition: the `receiver` specification. The receiver appears between the keyword *func* and the name of the method.
+
+Pointers are better explained at the [pointers page]( {{<ref "/docs/go-pointers">}}), but in the example below you see how they work together with methods.
 
 ```go
 type Employee struct {
