@@ -55,7 +55,7 @@ fmt.Println(bob.name)
 
 ## Anonimous Struct
 
-You can also declare that a variable implements a struct type without first giving the struct type a name. This is called an anonymous struct:
+You can also declare that a variable implements a struct type without first giving the struct type a name. This is called an anonymous struct and can only be instantiated once.
 
 ```go
 var person struct {

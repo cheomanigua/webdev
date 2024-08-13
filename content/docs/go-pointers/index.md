@@ -167,7 +167,43 @@ func main() {
 	fmt.Println(*ptr) // output: 4
 }
 ```
+## Operators and operations
 
+- The `&` is the *address* operator. It precedes a value type and returns the address where the value is stored.
+- The `*` is the *indirection* operator. It precedes a variable of pointer type and returns the pointed-to value. This is called *dereferencing*.
+
+Example:
+
+```go
+x := 10
+p := &x
+fmt.Println(p)		// prints a memory address
+fmt.Println(*p)		// prints 10
+z := 5 + *p
+fmt.Println(z)		// prints 15
+```
+#### Dereferrencing a pointer
+Setting or getting  a variable through a pointer
+
+```go
+*p = 21
+fmt.Printf("The value p points to is: %v", *p)
+```
+
+#### Generate a pointer directly with the & operator
+
+```go
+	i, j := 42, 2701
+
+	p := &i         // &i generates pointer p that points to i
+	fmt.Println(*p) // read i through the pointer
+	*p = 21         // set i through the pointer
+	fmt.Println(i)  // see the new value of i
+
+	p = &j         // point to j
+	*p = *p / 37   // divide j through the pointer
+	fmt.Println(j) // see the new value of j
+```
 
 ## Best Practices for Using Pointers in Go:
 

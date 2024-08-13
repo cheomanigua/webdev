@@ -19,6 +19,19 @@ weight: 2
 - Visual -\> **v**, **V**, **Ctrl** + **v**
 - Command -\> **:**
 
+### Indentation
+
+- Insert Mode:
+  - **Ctrl** + **d** : shift left
+  - **Ctrl** + **t** : shift right
+- Normal mode:
+  - **Shift** + **«** : shift current line left
+  - **Shift** + **»** : shift current line right
+- Visual mode:
+  - **<** : shift selection left
+  - **>** : shift selection right
+
+
 #### Visual mode multi-line editing
 1. Move the cursor exactly where you want to insert the new text
 2. `Ctrl + v`
@@ -72,8 +85,6 @@ Operators specify which operation to perfom:
 - **c** -\> Change (delete and enter insert mode)
 - **r** -\> Replace
 - **v** -\> Visually select
-- **<** -\> Indent to the left
-- **>** -\> Indent to the right
 
 #### Motion
 Motion specifies where the Operators operate in relation to the cursor position:
@@ -257,7 +268,7 @@ You can customize Vim by editing `~/.vimrc`
 
 ```
 let mapleader = "," 
-set tabstop=2
+set tabstop=4
 set autoindent
 set number " enable line numbering
 set relativenumber "enable relative line number
@@ -377,8 +388,8 @@ call plug#end()
 
 " Set tab width and indentations with spaces (no hard tabs) 
 set expandtab
-set shiftwidth=2
-set softtabstop=2
+set shiftwidth=4
+set tabstop=4
 
 " Auto-indenting
 set autoindent

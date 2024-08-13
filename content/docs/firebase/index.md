@@ -80,7 +80,7 @@ So, if you want to update your deployment with the last code changes, you have t
 # Deleting
 
 1. In your local computer, go to your project's directory and delete the following files and directory: `firebase.json`, `.firebaserc` and `.firebase/`
-2. If you also wants to delete the project in the Firebase web console:
+2. If you also want to delete the project in the Firebase web console:
     1. Go to your [Firebase console](https://console.firebase.google.com/)
     2. Select the project you want to delete
     3. Go to the [Project settings](https://console.firebase.google.com/project/_/settings/general/)
