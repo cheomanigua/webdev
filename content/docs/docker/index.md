@@ -96,13 +96,15 @@ Providing we have these files in the directory where we are going to issue the b
 * index.html
 * services.html
 
-We create and edit the following file: `Dockerfile` 
+We create a file called `Dockerfile` and edit like this: 
 
 ```dockerfile 
-FROM nginx:latest
+FROM nginx:stable-alpine-slim
 WORKDIR /usr/share/nginx/html
 COPY . .
 ```
+This dockerfile above will download a very tiny linux OS with nginx already installed and configured. We then set the default working directory of the image to `usr/share/nginx/html`. Lastly, we copy all files in our local directory to the image working directory, namely, all html files to the default nginx serving directory.
+
 
 And now we issue the build command:
 
