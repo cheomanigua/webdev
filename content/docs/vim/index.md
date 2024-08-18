@@ -229,9 +229,9 @@ Examples:
 - Split window horizontally -\> **:split** or **:sp** or **Ctrl** + **w** + **s**
 - Split window vertically -\> **:vsplit** or **:vs** or **Ctrl** + **w** + **v**
 - Cycle through windows -\> **Ctrl** + **w**  + **w**
+- Move to left window -\> **Ctrl** + **h** or **Ctrl** + **w** + **h**
+- Move to right window -\> **Ctrl** + **l** or **Ctrl** + **w** + **l**
 - Move to previous active window -\> **Ctrl** + **w** + **p**
-- Move to left window -\> **Ctrl** + **w** + **h**
-- Move to right window -\> **Ctrl** + **w** + **l**
 - Swap windows positions -\> **Ctrl** + **w** + **r**
 - Move windows directionally -\> **Ctrl** + **w** + **H/J/K/L**
 - Close current window -\> **Ctrl + q** or **:hide**

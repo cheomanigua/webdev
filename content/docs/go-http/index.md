@@ -62,9 +62,10 @@ func main() {
 
 We can see now in the code above the `http.Handle`. What is it? It is a built in function that registers the handler for the given pattern in DefaultServerMux. You can check those patterns [here](https://pkg.go.dev/net/http#hdr-Patterns). Basically the first parameter declares the pattern to match, and the second paramenter instructs what the handler actually does when the match occurs.
 
-## Handle vs HandleFunc (functions)
 
-### Handle
+
+
+## 1. Handle (function)
 
 `http.Handle` is a function that registers the handler for the given pattern in `[DefaultServerMux]`. The documentation for `[ServerMux]` explains how patterns are matched.
 
@@ -72,7 +73,52 @@ We can see now in the code above the `http.Handle`. What is it? It is a built in
 func(pattern string, handler http.Handler)
 ```
 
-### HandleFunc
+Example:
+
+```go
+package main
+
+import (
+	"io"
+	"log"
+	"net/http"
+)
+
+type myHandler1 struct{}
+type myHandler2 struct{}
+type myHandler3 struct{}
+
+func (h myHandler1) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	io.WriteString(w, "Hello from myHandler 1")
+}
+
+func (h *myHandler2) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	io.WriteString(w, "Hello from myHandler 2")
+}
+
+func (h myHandler3) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	io.WriteString(w, "Hello from myHandler 3")
+}
+
+func myHandler4() http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		io.WriteString(w, "Hello from myHandler 4")
+	})
+}
+
+func main() {
+	mux := http.NewServeMux()
+	mux.Handle("/h1", myHandler1{})
+	mux.Handle("/h2", &myHandler2{})
+	mux.Handle("/h3", new(myHandler3))
+	mux.Handle("/h4", myHandler4())
+	log.Fatal(http.ListenAndServe(":8080", mux))
+}
+```
+
+
+
+## 2. HandleFunc (function)
 
 `http.HandleFunc` is a function that registers the handler function for the the given pattern in `[DefaultServerMux]`. The documentation for `[ServerMux]` explains how patterns are matched.
 
@@ -98,20 +144,11 @@ func h2(w http.ResponseWriter, _ *http.Request) {
 	io.WriteString(w, "Hello from a HandleFunc #2!\n")
 }
 
-type HelloHandler struct{}
-
-func (h *HelloHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, "Hello!")
-}
-
 func main() {
-	http.HandleFunc("/", h1)
-	http.HandleFunc("/endpoint", h2)
-
-	hello := HelloHandler{}
-	http.Handle("/hello", &hello)
-
-	http.ListenAndServe(":8080", nil)
+	mux := http.NewServerMux()
+	mux.HandleFunc("/", h1)
+	mux.HandleFunc("/endpoint", h2)
+	http.ListenAndServe(":8080", mux)
 }
 ```
 
