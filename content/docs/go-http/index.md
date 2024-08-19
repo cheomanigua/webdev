@@ -65,15 +65,18 @@ We can see now in the code above the `http.Handle`. What is it? It is a built in
 
 
 
-## 1. Handle (function)
+## 1. Handle
 
-`http.Handle` is a function that registers the handler for the given pattern in `[DefaultServerMux]`. The documentation for `[ServerMux]` explains how patterns are matched.
+`http.Handle` is a **function** that registers the handler for the given pattern in
+`[DefaultServer]`. So, `http.Handle` is a function with two parameters:
+1. A pattern of the route.
+2. An object of a user-defined type that implements the handler interface similar to ListenAndServe().
 
 ```go
-func(pattern string, handler http.Handler)
+func(pattern string, handler [Handler](https://pkg.go.dev/net/http#Handler))
 ```
 
-Example:
+An example of `http.Handle` implementation in six different ways:
 
 ```go
 package main
@@ -87,6 +90,7 @@ import (
 type myHandler1 struct{}
 type myHandler2 struct{}
 type myHandler3 struct{}
+type myHandler4 struct{}
 
 func (h myHandler1) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, "Hello from myHandler 1")
@@ -100,30 +104,41 @@ func (h myHandler3) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, "Hello from myHandler 3")
 }
 
-func myHandler4() http.Handler {
+func (h myHandler4) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	io.WriteString(w, "Hello from myHandler 4")
+}
+
+func myHandler5() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		io.WriteString(w, "Hello from myHandler 4")
+		io.WriteString(w, "Hello from myHandler 5")
 	})
 }
 
+func myHandler6(w http.ResponseWriter, r *http.Request) {
+	io.WriteString(w, "Hello from myHandler 6")
+}
+
 func main() {
+    var h4 myHandler4
 	mux := http.NewServeMux()
 	mux.Handle("/h1", myHandler1{})
 	mux.Handle("/h2", &myHandler2{})
 	mux.Handle("/h3", new(myHandler3))
-	mux.Handle("/h4", myHandler4())
+	mux.Handle("/h4", h4)
+	mux.Handle("/h5", myHandler5())
+	mux.Handle("/h6", http.HandlerFunc(myHandler6))
 	log.Fatal(http.ListenAndServe(":8080", mux))
 }
 ```
 
 
 
-## 2. HandleFunc (function)
+## 2. HandleFunc
 
-`http.HandleFunc` is a function that registers the handler function for the the given pattern in `[DefaultServerMux]`. The documentation for `[ServerMux]` explains how patterns are matched.
+`http.HandleFunc` is a **function** that registers the handler function for the the given pattern in `[DefaultServerMux]`. The documentation for `[ServerMux]` explains how patterns are matched.
 
 ```go
-func(pattern string, handler func(http.ResponseWriter, *http.Request))
+func HandleFunc(pattern string, handler func(ResponseWriter, *Request))
 ```
 
 Example:
@@ -152,11 +167,9 @@ func main() {
 }
 ```
 
-## Handler and HandlerFunc
+## 3. Handler
 
-### Handler (type)
-
-`http.Handler` is an interface that responds to an HTTP request. [http.Handler.ServeHTTP] should write reply headers and data to the [`http.ResponseWriter`](https://pkg.go.dev/net/http#ResponseWriter) or read from the [Request.Body] after or concurrently with the completion of the ServeHTTP call.
+`http.Handler` is an **interface** that responds to an HTTP request. [http.Handler.ServeHTTP] should write reply headers and data to the [`http.ResponseWriter`](https://pkg.go.dev/net/http#ResponseWriter) or read from the [Request.Body] after or concurrently with the completion of the ServeHTTP call.
 
 ```go
 type Handler interface {
@@ -214,8 +227,9 @@ func main() {
 ```
 
 
-### HandlerFunc (type)
-`http.HandlerFunc` type is an adapter class to allow the use of ordinary functions as HTTP handlers. If '**f**' is a function with the appropiate signature, HandlerFunc(f) is a [`http.Handler`](https://pkg.go.dev/net/http#Handler) that calls '**f**'.
+## 4. HandlerFunc
+
+`http.HandlerFunc` type is an **adapter class** to allow the use of ordinary functions as HTTP handlers. If '**f**' is a function with the appropiate signature, HandlerFunc(f) is a [`http.Handler`](https://pkg.go.dev/net/http#Handler) that calls '**f**'.
 
 ```go
 type HandlerFunc func(ResponseWriter, *Request)
