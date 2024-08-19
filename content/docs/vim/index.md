@@ -285,7 +285,7 @@ vmap <buffer> ;bo "zdi<strong><c-r>z</strong><esc>
 
 **Note**: For the changes to take affect, run this command inside Vim:
 
-`:so $MYVIMRC`
+`:source $MYVIMRC`
 
 <Message variant='info'>
   🎁 <b>Gift</b> <br/>
@@ -329,9 +329,78 @@ $ q
 $ @q
 ```
 
-## Plugins
+# Plugins
 
-It is recommended to install a plugin manager in order to install, load and uninstall plugins. In this case we are using <a href="https://github.com/junegunn/vim-plug" target="_blank">vim-plug</a>
+It is recommended to install a plugin manager in order to install, load and uninstall plugins.
+
+## Vim 8 plugin manager
+
+Vim comes with a built-in plugin manager called **Vim 8 packages**.
+
+### Activating the plugin manager
+
+1. First, create a directory structure representing a plugin-group, say `plugins`, as follows:
+
+```
+$ mkdir -p ~/.vim/pack/plugins/start/
+```
+
+2. Activate the plugin manager:
+```
+$ sed -i -e '$a\'$'\n''filetype plugin indent on' ~/.vimrc
+```
+
+### Installing a plugin
+
+Clone (or alternatively, download the zip, and unzip) the plugin you want to install inside the `start` directory:
+
+```
+$ git clone https://github.com/foo/bar.git ~/.vim/pack/plugins/start/bar
+```
+
+### Generating helptags for a plugin
+```
+:helptags ~/.vim/pack/plugins/start/foo
+```
+
+### Upgrading a plugin
+```
+$ cd ~/.vim/pack/plugins/start/bar
+$ git pull origin master
+```
+
+### Deleting a plugin
+```
+$ rm -r ~/.vim/pack/plugins/start/bar
+```
+
+### Example: installing Vim-go plugin
+
+Vim-go is a plugin that facilitates the Golang programming experience in Vim. This is how to install using the Vim 8 plugin manager:
+
+1. Add the plugin:
+
+```
+$ git clone https://github.com/fatih/vim-go.git ~/.vim/pack/plugins/start/vim-go
+```
+
+2. Install all necessary binaries:
+
+```
+:GoInstallBinaries
+```
+
+3. Generate the plugin's help tags:
+
+```
+:helptags ALL
+```
+
+4. Code completion is enabled by default via `omnifunc`, which you can trigger
+   with **Ctrl-X** + **Ctrl-O**
+
+
+## Vim-plug plugin manager
 
 1. Download <a href="https://github.com/junegunn/vim-plug" target="_blank">vim-plug</a>:
 

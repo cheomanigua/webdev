@@ -3,10 +3,15 @@ title: 'Go http'
 date: 2024-08-06T19:27:37+10:00
 weight: 3
 ---
-## Installation
-[go.dev/doc/install](https://go.dev/doc/install)
 
-## Simplest web server
+Processing HTTP requests with Go is primarily about two things: `handlers` and `servemuxes`.
+
+- Handlers are responsible for carrying out your application logic and writing response headers and bodies.
+- A Servemux (also known as a router) stores a mapping between the predefined URL paths for your application and the corresponding handlers. Usually you have one servemux for your application containing all your routes.
+
+Go's [net/http](https://pkg.go.dev/net/http) package ships with the simple but effective [http.ServeMux](https://pkg.go.dev/net/http#ServeMux) servemux, plus a few functions to generate common handlers including [http.FileServer()](https://pkg.go.dev/net/http/#FileServer), [http.NotFoundHandler()](https://pkg.go.dev/net/http/#NotFoundHandler) and [http.RedirectHandler()](https://pkg.go.dev/net/http/#RedirectHandler).
+
+Let's take a lood at the simplest web server:
 
 ```go
 package main
@@ -36,9 +41,9 @@ server/
         |_ contact.html
 ```
 
-## Simplest web server: Effective Go version 
+The simplest web server making use of Effective Go writing style: clear and idiomatic Go code:
 
-Let's make use of Effective Go writing style: clear and idiomatic Go code:
+
 
 ```go
 package main
@@ -49,11 +54,12 @@ import (
 )
 
 func main() {
+    mux := http.NewServeMux()
     fs := http.FileServer(http.Dir("./static"))
-    http.Handle("/", fs)
+    mux.Handle("/", fs)
 
     log.Print("Listening on :8080...")
-    err := http.ListenAndServe(":8080", nil)
+    err := http.ListenAndServe(":8080", mux)
     if err != nil {
         log.Fatal(err)
     }
@@ -62,8 +68,9 @@ func main() {
 
 We can see now in the code above the `http.Handle`. What is it? It is a built in function that registers the handler for the given pattern in DefaultServerMux. You can check those patterns [here](https://pkg.go.dev/net/http#hdr-Patterns). Basically the first parameter declares the pattern to match, and the second paramenter instructs what the handler actually does when the match occurs.
 
+The handlers that ship with `net/http` are useful, but most of the time when building a web application you'll want to use your own custom handlers instead. So how do you do that? Check the Practical Examples at the end of this page.
 
-
+# http implementations
 
 ## 1. Handle
 
@@ -340,3 +347,126 @@ func main() {
 * `http.Handle` takes a value of any type that implements the `http.Handler` interface, `http.HandlerFunc` is one of those types that implements that interface, but it's not the only one.
 * `http.HandleFunc` takes in a function of type `http.HandlerFunc`. Note that `http.HandleFunc` is not the same as `http.Handle`.
 * also note that for the argument to `http.HandleFunc` the method `ServeHTTP(...` is not important, what's important is that the signature, ie type, of the function that you pass in is the same as defined by the argument, ie. `func(http.ResponseWriter, *http.Request)`. The ServeHTTP method is only important for the `http.Handle` or anything that depends on the `http.Handler` interface which declares that method as one of its members.
+
+
+# Practical examples
+
+### Handle
+
+Show the date and time:
+
+```go
+package main
+
+import (
+	"log"
+	"net/http"
+	"time"
+)
+
+type timeHandler struct {
+	format string
+}
+
+func (th timeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	tm := time.Now().Format(th.format)
+	w.Write([]byte("The time is: " + tm))
+}
+
+func main() {
+	mux := http.NewServeMux()
+	mux.Handle("/time", timeHandler{format: time.RFC822})
+	log.Print("Listening...")
+	http.ListenAndServe(":8080", mux)
+}
+```
+
+### HandlerFunc
+
+For simple cases (like the example above) defining new a custom type (in the above case a struct) just to make a handler feels a bit verbose. Fortunately, we can rewrite the handler as a simple function instead by coercing the fuction into being a handler by converting it to a [http.HandlerFunc](https://pkg.go.dev/net/http/#HandlerFunc):
+
+```go
+package main
+
+import (
+	"log"
+	"net/http"
+	"time"
+)
+
+func timeHandler(w http.ResponseWriter, r *http.Request) {
+	tm := time.Now().Format(time.RFC822)
+	w.Write([]byte("The time is: " + tm))
+}
+
+func main() {
+	mux := http.NewServeMux()
+	mux.Handle("/time", http.HandlerFunc(timeHandler))
+	log.Print("Listening...")
+	http.ListenAndServe(":8080", mux)
+}
+```
+
+### HandleFunc
+
+Converting a function to a `http.HandlerFunc`type and then adding it to a servemux like in the example above is so common that Go provides a shortcut: the [mux.HandleFunc](https://pkg.go.dev/net/http#ServeMux.HandleFunc) method. You can use this like so:
+
+
+```go
+func main() {
+	mux := http.NewServeMux()
+	mux.HandleFunc("/time", timeHandler)
+	log.Print("Listening...")
+	http.ListenAndServe(":8080", mux)
+}
+```
+
+### Passing variables to handlers
+
+Most of the time using a function as a handler like this works well. But there is a bit of a limitation when things start getting more complex.
+
+You've probably noticed that, unlike the method before, we've had to hardcode the time format in the `timeHandler` function. What happens when you want to pass information or variables from `main()` to a handler?
+
+A neat approach is to put our handler logic into a closure, and close over the variables we want to use, like this:
+
+```go
+func timeHandler(format string) http.Handler {
+	fn := func(w http.ResponseWriter, r *http.Request) {
+		tm := time.Now().Format(format)
+		w.Write([]byte("The time is: " + tm))
+	}
+	return http.HandlerFunc(fn)
+}
+
+func main() {
+	mux := http.NewServeMux()
+	mux.Handle("/time", timeHandler(time.RFC1123))
+	log.Print("Listening...")
+	http.ListenAndServe(":8080", mux)
+}
+```
+The `timeHandler()` function now has a subtly different role. Instead of coercing the function into a handler (like we did previously), we are now using it to return a handler.
+
+In this example we've just been passing a simple string to a handler. But in a real-world application you could use this method to pass database connection, template map, or any other application-level context. It's a good alternative to using global variables, and has the added benefit of making neat self-contained handlers for testing.
+
+You might also see this same pattern written as:
+
+```go
+func timeHandler(format string) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		tm := time.Now().Format(format)
+		w.Write([]byte("The time is: " + tm))
+	})
+}
+```
+
+Or using an implicit conversion to the `http.HandlerFunc` type on return:
+
+```go
+func timeHandler(format string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		tm := time.Now().Format(format)
+		w.Write([]byte("The time is: " + tm))
+	}
+}
+```
