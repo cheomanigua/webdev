@@ -32,7 +32,7 @@ weight: 2
   - **>** : shift selection right
 
 
-#### Visual mode multi-line editing
+### Visual mode multi-line editing
 1. Move the cursor exactly where you want to insert the new text
 2. `Ctrl + v`
 3. Move up or down the lines to select several lines

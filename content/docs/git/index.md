@@ -24,11 +24,11 @@ Generate the ssh keys: `$ ssh-keygen`
 
 By default it will generate the file `~/.ssh/id_rsa`, but you can edit the name. Leave it like that.
 
-You can also choose to generate a passphrase for the private key, which you will need to enter everytime you ssh. Fortunately, you can prevent from entering the passphrase everytime by adding the private key to the ssh-agent. In order to add the private key to the ssh-agent, issue:
+You will be asked to enter a passphrase. This is optional. If you decide to setup a passphrase, you will need to enter the passphrase everytime you ssh to a remote server. Fortunately, you can prevent from entering the passphrase everytime by adding the private key to the ssh-agent. In order to add the private key to the ssh-agent, issue:
 
 ```
-$ ssh-add ~/.ssh/id_rsa
 $ eval $(ssh-agent)
+$ ssh-add ~/.ssh/id_rsa
 ```
 
 The files `id_rsa` and `id_rsa.pub` have been created in the `.ssh` directory. Copy the content of `id_rsa.pub` to the clipboard for the next step.
