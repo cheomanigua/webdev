@@ -26,9 +26,10 @@ By default it will generate the file `~/.ssh/id_rsa`, but you can edit the name.
 
 You can also choose to generate a passphrase for the private key, which you will need to enter everytime you ssh. Fortunately, you can prevent from entering the passphrase everytime by adding the private key to the ssh-agent. In order to add the private key to the ssh-agent, issue:
 
-`$ ssh-add ~/.ssh/id_rsa`
-
-You will only need to enter the passphrase once when accesing the GitHub repository with **git** during the second `git push` iteration.
+```
+$ ssh-add ~/.ssh/id_rsa
+$ eval $(ssh-agent)
+```
 
 The files `id_rsa` and `id_rsa.pub` have been created in the `.ssh` directory. Copy the content of `id_rsa.pub` to the clipboard for the next step.
 
